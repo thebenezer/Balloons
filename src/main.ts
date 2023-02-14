@@ -24,6 +24,7 @@ const shareBtn = document.getElementById('share-btn');
 const heart = document.getElementById('heart');
 const inputEntry = document.getElementById('inputEntry');
 const createNew = document.getElementById('createNew');
+const textElement = document.getElementById('text');
 
 let controls: OrbitControls;
 let camera: THREE.PerspectiveCamera;
@@ -352,10 +353,8 @@ function setupEventListeners() {
   if (name1 && name2 && color) {
     (inputEntry as HTMLElement).style.display = 'none';
     const text = `From ${decodeURIComponent(name1)}. To ${decodeURIComponent(name2)}.`;
-    const textElement = document.createElement('div');
-    textElement.classList.add('text');
-    textElement.innerText = text;
-    document.body.appendChild(textElement);
+    (textElement as HTMLElement).style.display = 'block';
+    (textElement as HTMLElement).innerText = text;
     setBalloonColor(decodeURIComponent(color).toString()||'0')
   }
 
@@ -441,7 +440,10 @@ function setupEventListeners() {
   (closePopupButton as HTMLElement).addEventListener('click',closePopup,false);
 
   (createNew as HTMLElement).addEventListener('click',()=>{
+    swoosh.playbackRate=1.7;
+    swoosh.play();
     (inputEntry as HTMLElement).style.display = 'flex';
+    (textElement as HTMLElement).style.display = 'none';
   },false);
 
   (heart as HTMLElement).addEventListener('click',()=>{
@@ -450,6 +452,9 @@ function setupEventListeners() {
     music.play();
     // (inputEntry as HTMLElement).style.opacity = "0";
     // setTimeout(()=>{
+      const text = `Gift To ${(name2Input as HTMLInputElement).value || "You"}.`;
+      (textElement as HTMLElement).style.display = 'block';
+      (textElement as HTMLElement).innerText = text;
       (inputEntry as HTMLElement).style.display = 'none';
     // },200)
   },false)

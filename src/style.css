@@ -47,7 +47,7 @@ canvas {
 
 .logo{
   z-index: 3;
-  color: #fa9191;
+  color: #d24141;
   position: absolute;
   top: 20px;
   left: 30px;
@@ -203,6 +203,7 @@ button img{
 }
 
 #createNew{
+  cursor: pointer;
   border-radius: 50%;
   background-color: #0e0e0e80;
   border: 2px solid #fefefe;
