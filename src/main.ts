@@ -3,10 +3,15 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Stats from 'stats.js';
 
-const stats = new Stats();
-document.body.appendChild( stats.dom );
+import swooshSound from './assets/sounds/little-whoosh-2-6301.mp3'
+import musicSound from './assets/sounds/romanticMemories.mp3'
+import burstSound from './assets/sounds/pop2-84862.mp3'
+import burstSound2 from './assets/sounds/balloon-pop-93436.mp3'
+
+// const stats = new Stats();
+// document.body.appendChild( stats.dom );
 // if (import.meta.env.PROD) {
-  stats.dom.style.display='none'
+  // stats.dom.style.display='none'
 // }
 
 // Get references to the input fields and the share button
@@ -18,6 +23,7 @@ const showColorsButton = document.getElementById('show-colors-button');
 const shareBtn = document.getElementById('share-btn');
 const heart = document.getElementById('heart');
 const inputEntry = document.getElementById('inputEntry');
+const createNew = document.getElementById('createNew');
 
 let controls: OrbitControls;
 let camera: THREE.PerspectiveCamera;
@@ -34,8 +40,10 @@ let mat = new THREE.Matrix4()
 const listener = new THREE.AudioListener();
 const loader = new THREE.AudioLoader();
 let soundReady = false;
-// let soundReady = false;
 const swoosh = new THREE.Audio(listener)
+const music = new THREE.Audio(listener)
+const burst = new THREE.Audio(listener)
+const burst2 = new THREE.Audio(listener)
 
 var mouse = new THREE.Vector2();
 
@@ -45,7 +53,7 @@ const confettiRotations = [];
 const balloonSpeeds: number[] = [];
 
 init();
-requestAnimationFrame(tick);
+tick();
 
 function init() {
   // Camera
@@ -93,18 +101,20 @@ function init() {
   document.addEventListener("click", onDocumentMouseDown, false);
   function onDocumentMouseDown(event: { preventDefault: () => void; clientX: number; clientY: number; }) {
     // event.preventDefault();
+    if(!music.isPlaying)music.play();
     mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
     mouse.y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
     var raycaster = new THREE.Raycaster();
     raycaster.setFromCamera(mouse, camera);
     var intersects = raycaster.intersectObject(instancedMesh);
     if (intersects.length > 0) {
+      if(!burst.isPlaying)burst.play();
+      else if(!burst2.isPlaying)burst2.play();
+
       var instanceIndex = intersects[0].instanceId;
-
       updateFetti(intersects[0].point,2.5);
-
       // Remove the intersected balloon
-      matrix.setPosition(Math.random() * 30 - 10, -50, Math.random() * 30 - 10);
+      matrix.setPosition(Math.random() * 30 - 10, -30, Math.random() * 30 - 10);
       if(!instanceIndex)return;
       instancedMesh.setMatrixAt(instanceIndex, matrix);
 
@@ -205,16 +215,14 @@ function tickFetti(){
   }
   confettiInstance.instanceMatrix.needsUpdate = true;
 }
-const timer = new THREE.Clock(true)
 // RAF Update the screen
 function tick(): void {
 
-  stats.begin();
-  const delta = timer.getDelta();
+  // stats.begin();
   tickFetti()
   for (let i = 0; i < instancedMesh.count; i++) {
     instancedMesh.getMatrixAt(i,matrix);
-    matrix.elements[13] += balloonSpeeds[i]*3*delta;
+    matrix.elements[13] += balloonSpeeds[i]*0.1;
     matrix.setPosition(matrix.elements[12], matrix.elements[13], matrix.elements[14]);
 
     // If the balloon is above the screen, position it down again
@@ -228,7 +236,7 @@ function tick(): void {
 
   renderer.render(scene, camera);
   controls.update();
-  stats.end();
+  // stats.end();
 
   window.requestAnimationFrame(tick);
 }
@@ -268,7 +276,10 @@ function createBalloons(count:number){
 
 function setupSounds() {
   camera.add(listener);
-  audioSetup(swoosh,'src/assets/sounds/little-whoosh-2-6301.mp3',1,loader)
+  audioSetup(swoosh,swooshSound,1,loader)
+  audioSetup(music,musicSound,0.1,loader)
+  audioSetup(burst,burstSound,0.1,loader)
+  audioSetup(burst2,burstSound2,0.1,loader)
 }
 
 function audioSetup(sound:THREE.Audio, url:string,volume:number,loader:THREE.AudioLoader){
@@ -339,32 +350,44 @@ function setupEventListeners() {
   const color = (urlParams.get('c'))
   // If the URL has valid parameters, update the input fields and balloon color
   if (name1 && name2 && color) {
-    const text = `To ${decodeURIComponent(name1)}. From ${decodeURIComponent(name2)}`;
+    (inputEntry as HTMLElement).style.display = 'none';
+    const text = `From ${decodeURIComponent(name1)}. To ${decodeURIComponent(name2)}.`;
     const textElement = document.createElement('div');
     textElement.classList.add('text');
     textElement.innerText = text;
     document.body.appendChild(textElement);
-    setBalloonColor(decodeURIComponent(color)||'0')
-
+    setBalloonColor(decodeURIComponent(color).toString()||'0')
   }
 
   let balloonColor = '0';
+  colorOptions.forEach(colorOption => {
+    colorOption.addEventListener('click', () => {
+      balloonColor = (colorOption as HTMLElement).dataset.color||"0";
+      console.log(balloonColor)
+    });
+  });
   // Add a click event listener to the share button
   (shareBtn as HTMLElement).addEventListener('click', () => {
+    swoosh.playbackRate=1.7;
+    swoosh.play();
     // Get the current values of the input fields and the selected color
     const name1 = (name1Input as HTMLInputElement).value || "I";
     const name2 = (name2Input as HTMLInputElement).value || "You";
-    colorOptions.forEach(colorOption => {
-      colorOption.addEventListener('click', () => {
-        balloonColor = (colorOption as HTMLElement).dataset.color||"0";
-      });
-    });
+    
     const color = balloonColor;
 
     // Encode the parameter values to be included in the URL
     const encodedName1 = encodeURIComponent(name1);
     const encodedName2 = encodeURIComponent(name2);
     const encodedColor = encodeURIComponent(color);
+
+    urlParams.delete('a');
+    urlParams.delete('b');
+    urlParams.delete('c');
+    const baseUrl = window.location.origin + window.location.pathname;
+    const newUrl = baseUrl + urlParams.toString();
+    window.history.pushState({path:newUrl}, '', newUrl);
+
 
     // Build the URL string with the parameter values
     const url = `${window.location.href}?a=${encodedName1}&b=${encodedName2}&c=${encodedColor}`;
@@ -417,12 +440,18 @@ function setupEventListeners() {
   var closePopupButton = document.getElementById("close-popup");
   (closePopupButton as HTMLElement).addEventListener('click',closePopup,false);
 
+  (createNew as HTMLElement).addEventListener('click',()=>{
+    (inputEntry as HTMLElement).style.display = 'flex';
+  },false);
+
   (heart as HTMLElement).addEventListener('click',()=>{
+    swoosh.playbackRate=1.7;
     swoosh.play();
-    (inputEntry as HTMLElement).style.opacity = "0";
-    setTimeout(()=>{
+    music.play();
+    // (inputEntry as HTMLElement).style.opacity = "0";
+    // setTimeout(()=>{
       (inputEntry as HTMLElement).style.display = 'none';
-    },200)
+    // },200)
   },false)
 }
 
@@ -446,10 +475,12 @@ function toggleSound() {
   const soundOn = document.getElementById('soundOn');
   const soundOff = document.getElementById('soundOff');
   if (!soundOn || !soundOff) return;
-  if (soundReady == false) {
+  if (soundReady == true) {
+    listener.setMasterVolume(1);
     soundOn.style.display = 'block';
     soundOff.style.display = 'none';
   } else {
+    listener.setMasterVolume(0);
     soundOn.style.display = 'none';
     soundOff.style.display = 'block';
   }

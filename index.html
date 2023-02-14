@@ -39,7 +39,8 @@
   </head>
 
   <body>
-    <h1 class="logo">LoveLoons</h1>
+    <a href="./index.html"><h1 class="logo">LoveLoons</h1></a>
+    <!-- <h1 class="logo">LoveLoons</h1> -->
     
     
     <div id="popup" class="popup">
@@ -66,6 +67,7 @@
 
     <div class="inputEntry" id="inputEntry">
       <div class="inputTitle">Share love by sending some Virtual Balloons</div>
+      <div class="inputAction">(Enter you name and click the heart.)</div>
       <form method="post" class="inputContainer">
         <input autocomplete="off" type="text" id="name1-input" name="name1" placeholder="I" pattern="^[a-zA-Z0-9]+$">
         <div id="heart">❤️</div><br>
@@ -107,17 +109,22 @@
       </div>
     </div>
     
+    <div id="createNew">
+      <img src="./src/assets/images/editing.png" alt="create" srcset="">
+    </div>
+    
     <div class="playbackControls">
       <div id="toggleSound">
         <button id="soundOn">
-          <img alt="soundOn" src="https://img.icons8.com/fluency-systems-filled/128/null/high-volume.png"/>
+          <img alt="soundOn" src="./src/assets/images/volume.png"/>
         </button>
         <button id="soundOff">
-          <img alt="soundOff" src="https://img.icons8.com/fluency-systems-filled/128/null/no-audio.png"/>
+          <img alt="soundOff" src="./src//assets/images/mute.png"/>
         </button>
       </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
   <!-- <a href="https://www.flaticon.com/free-icons/whatsapp" title="whatsapp icons">Whatsapp icons created by Fathema Khanom - Flaticon</a> -->
+  <!-- Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=84862">Pixabay</a> -->
 </html>
