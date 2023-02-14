@@ -340,19 +340,19 @@ function setupEventListeners() {
 
 }
 
-function toggleSound() {
-  const soundOn = document.getElementById('soundOn');
-  const soundOff = document.getElementById('soundOff');
-  if (!soundOn || !soundOff) return;
-  if (soundReady == false) {
-    soundOn.style.display = 'block';
-    soundOff.style.display = 'none';
-  } else {
-    soundOn.style.display = 'none';
-    soundOff.style.display = 'block';
-  }
-  soundReady=!soundReady;
-}
+// function toggleSound() {
+//   const soundOn = document.getElementById('soundOn');
+//   const soundOff = document.getElementById('soundOff');
+//   if (!soundOn || !soundOff) return;
+//   if (soundReady == false) {
+//     soundOn.style.display = 'block';
+//     soundOff.style.display = 'none';
+//   } else {
+//     soundOn.style.display = 'none';
+//     soundOff.style.display = 'block';
+//   }
+//   soundReady=!soundReady;
+// }
 
-function toggleAnimation() {
-}
+// function toggleAnimation() {
+// }
