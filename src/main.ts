@@ -19,7 +19,7 @@ document.body.appendChild( stats.dom );
 const listener = new THREE.AudioListener();
 const loader = new THREE.AudioLoader();
 
-let soundReady = false;
+// let soundReady = false;
 const swoosh = new THREE.Audio(listener)
 
 var mouse = new THREE.Vector2();
@@ -102,7 +102,7 @@ function createFetti(count:number,radius:number){
     // color: 0x00ff00,
     side: THREE.DoubleSide
   } );
-  const colors = [];
+  // const colors = [];
 
   const color = new THREE.Color();
   // Create an instanced mesh for the balloons
