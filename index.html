@@ -8,85 +8,106 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"/>
-    <title>LoonJoy - Send Virtual Balloons to Your Loved Ones</title>
-    <meta name="description" content="Send some virtual balloons to someone you love.">
+    <!-- <title>LoveLoons - Send Virtual Balloons to Your Loved One</title> -->
+    <!-- <meta name="description" content="Send some virtual balloons to someone you love."> -->
 
-    <title>LoonJoy - Send Virtual Balloons to Your Loved Ones</title>
+    <title>LoveLoons</title>
     <meta name="description" content="Send a virtual balloon gift to someone special with Loon Joy. Celebrate this season of love by sending love with a personal message.">
     <meta name="keywords" content="virtual balloons, balloon gifts, gift delivery, online gifting, special occasion gifts, Valentine's Day gifts, anniversary gifts, birthday gifts">
-    <meta property="og:title" content="Loon Joy - Send Virtual Balloons to Your Loved Ones">
+    <meta property="og:title" content="Loon Joy - Send Virtual Balloons to Your Loved One">
     <meta property="og:description" content="Celebrate special occasions and send virtual balloon gifts with Loon Joy. Choose from a variety of customizable balloons and add a personal message to make your gift extra special.">
     <meta property="og:image" content="https://example.com/balloon.jpg">
 
 
-    <meta itemprop="name" content="LoonJoy - Send Virtual Balloons to Your Loved Ones">
+    <meta itemprop="name" content="LoveLoons - Send Virtual Balloons to Your Loved One">
     <meta itemprop="description" content="Send some virtual balloons to someone you love.">
     <!-- <meta itemprop="image" content="./social2.webp"> -->
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="LoonJoy - Send Virtual Balloons to Your Loved Ones">
+    <meta name="twitter:title" content="LoveLoons - Send Virtual Balloons to Your Loved One">
     <meta name="twitter:description" content="Send some virtual balloons to someone you love.">
     <!-- <meta name="twitter:image" content="./social2.webp"> -->
 
-    <meta property="og:site_name" content="LoonJoy - Send Virtual Balloons to Your Loved Ones">
+    <meta property="og:site_name" content="LoveLoons - Send Virtual Balloons to Your Loved One">
     <meta property="og:type" content="website">
     <meta property="og:url" content="./">
-    <meta property="og:title" content="LoonJoy - Send Virtual Balloons to Your Loved Ones">
+    <meta property="og:title" content="LoveLoons - Send Virtual Balloons to Your Loved One">
     <meta property="og:description" content="Send some virtual balloons to someone you love.">
     <!-- <meta property="og:image" content="./social.webp"> -->
-    <meta name="apple-mobile-web-app-title" content="LoonJoy - Send Virtual Balloons to Your Loved Ones">
-    <meta name="application-name" content="LoonJoy - Send Virtual Balloons to Your Loved Ones">
+    <meta name="apple-mobile-web-app-title" content="LoveLoons - Send Virtual Balloons to Your Loved One">
+    <meta name="application-name" content="LoveLoons - Send Virtual Balloons to Your Loved One">
   </head>
 
   <body>
-    <h1 class="logo">LoonJoy</h1>
-    <!-- <a href="https://www.youtube.com/@thebenezer" class="cta" target="_blank" rel="noopener noreferrer">Tutorial</a> -->
-    <ul class="socials">
-      <li>
-        <a href="https://github.com/thebenezer/TheatreTutorial_Part1" target="_blank" rel="noopener noreferrer">
-          <img alt="Github Icon" src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/128/null/external-github-a-web-based-hosting-service-for-version-control-logo-color-tal-revivo.png"/>
-        </a>
-      </li>
-      <li>
-        <a href="https://twitter.com/th_ebenezer" target="_blank" rel="noopener noreferrer">
-          <img alt="Twitter Icon" src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/128/null/external-twitter-social-media-tanah-basah-glyph-tanah-basah-2.png"/>
-        </a>
-      </li>
-    </ul>
-    <div class="color-picker">
-      <!-- <div class="teardrop color-option red" data-color="red"></div> -->
-      <div class="colorContainer">
-        <div class="teardrop color-option red" data-color="red"></div>
+    <h1 class="logo">LoveLoons</h1>
+    
+    
+    <div id="popup" class="popup">
+      <div class="popupContainer">
+        <p id="sendGift">Send your gift to</p>
+        <input id="url-input" type="text" value="" readonly>
+        <button id="copy-btn">Copy</button>
+        <div class="iconsContainer">
+          <a id="twitter-btn" class="icons" href="https://twitter.com" target="_blank">
+            <img src="/src/assets/images/twitter.png" alt="ShareToTwitter" srcset="">
+          </a>
+          <a id="twitter-btn" class="icons" href="https://instagram.com" target="_blank">
+            <img src="/src/assets/images/instagram.png" alt="ShareToInstagram" srcset="">
+          </a>
+          <a id="whatsapp-btn" class="icons" href="https://api.whatsapp.com/send?text=" data-action="share/whatsapp/share" target="_blank">
+            <img src="/src/assets/images/whatsapp.png" alt="ShareToWhatsApp" srcset="">
+          </a>
+        </div>
+        <div class="close" id="close-popup">
+          <img src="./src/assets/images/close.png" alt="Close" srcset="">
+        </div>
       </div>
-      <div class="colorContainer">
-        <div class="teardrop color-option white" data-color="white"></div>
-      </div>
-      <div class="colorContainer">
-        <div class="teardrop color-option blue" data-color="blue"></div>
-      </div>
-      <div class="colorContainer">
-        <div class="teardrop color-option green" data-color="green"></div>
-      </div>
-      <div class="colorContainer">
-        <div class="teardrop color-option yellow" data-color="yellow"></div>
-      </div>
-      <div class="colorContainer">
-        <div class="teardrop color-option pink" data-color="pink"></div>
+    </div>
+
+    <div class="inputEntry" id="inputEntry">
+      <div class="inputTitle">Share love by sending some Virtual Balloons</div>
+      <form method="post" class="inputContainer">
+        <input autocomplete="off" type="text" id="name1-input" name="name1" placeholder="I" pattern="^[a-zA-Z0-9]+$">
+        <div id="heart">❤️</div><br>
+        <input autocomplete="off" type="text" id="name2-input" name="name2" placeholder="You" pattern="^[a-zA-Z0-9]+$">
+      </form>
+    </div>
+    
+
+    <div class="uiContainer">
+      <button type="submit" id="share-btn">
+        <img src="./src/assets/images/send.png" alt="Share">
+      </button>
+      <div>
+        <button id="show-colors-button" class="color-button">
+          <div class="teardrop gradient"></div>
+        </button>
+    
+        <div class="color-picker">
+          <!-- <div class="teardrop color-option red" data-color="red"></div> -->
+          <div class="colorContainer">
+            <div class="teardrop color-option red" data-color="0"></div>
+          </div>
+          <div class="colorContainer">
+            <div class="teardrop color-option white" data-color="5"></div>
+          </div>
+          <div class="colorContainer">
+            <div class="teardrop color-option blue" data-color="1"></div>
+          </div>
+          <div class="colorContainer">
+            <div class="teardrop color-option green" data-color="2"></div>
+          </div>
+          <div class="colorContainer">
+            <div class="teardrop color-option yellow" data-color="3"></div>
+          </div>
+          <div class="colorContainer">
+            <div class="teardrop color-option pink" data-color="4"></div>
+          </div>
+        </div>
       </div>
     </div>
     
-    <!-- <div class="enterSceneContainer" id="tapStart">
-      <p>Tap to start</p>
-    </div> -->
-    <!-- <div class="playbackControls">
-      <div id="toggleAnimation">
-        <button id="play">
-          <img alt="play" src="https://img.icons8.com/fluency-systems-filled/128/null/play.png"/>
-        </button>
-        <button id="pause">
-          <img alt="pause" src="https://img.icons8.com/fluency-systems-filled/128/null/pause.png"/>
-        </button>
-      </div>
+    <div class="playbackControls">
       <div id="toggleSound">
         <button id="soundOn">
           <img alt="soundOn" src="https://img.icons8.com/fluency-systems-filled/128/null/high-volume.png"/>
@@ -95,8 +116,8 @@
           <img alt="soundOff" src="https://img.icons8.com/fluency-systems-filled/128/null/no-audio.png"/>
         </button>
       </div>
-    </div> -->
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
-
+  <!-- <a href="https://www.flaticon.com/free-icons/whatsapp" title="whatsapp icons">Whatsapp icons created by Fathema Khanom - Flaticon</a> -->
 </html>
