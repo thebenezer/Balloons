@@ -1,7 +1,7 @@
 import './style.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import Stats from 'stats.js';
+// import Stats from 'stats.js';
 
 import swooshSound from './assets/sounds/little-whoosh-2-6301.mp3'
 import musicSound from './assets/sounds/romanticMemories.mp3'
